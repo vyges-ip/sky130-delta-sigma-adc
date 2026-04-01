@@ -1,0 +1,228 @@
+{
+  "$schema": "https://vyges.com/schema/v1/vyges-metadata.schema.json",
+  "x-version": "1.0.0",
+  "name": "sky130-delta-sigma-adc",
+  "version": "0.1.0",
+  "description": "A 12-bit, 10-KSPS incremental delta-sigma ADC implemented in the SKY130 process node, featuring a digital decimator, integrator, and SPI interface.",
+  "license": "MIT",
+  "maturity": "rtl_verified",
+  "target": [
+    "asic"
+  ],
+  "design_type": [
+    "digital"
+  ],
+  "created": "2026-04-01T05:16:28Z",
+  "updated": "2026-04-01T05:16:28Z",
+  "source": {
+    "type": "git",
+    "url": "https://github.com/r09g/iadc",
+    "commit": "b8c2c4006a0091d6bbcb35d19028b0b4c1393bf4",
+    "ip_path": ".",
+    "private": false,
+    "containsEncryptedPayload": false,
+    "indexing": true
+  },
+  "maintainers": [
+    {
+      "name": "Vyges",
+      "email": "team@vyges.com",
+      "url": "https://vyges.com",
+      "github": "vyges"
+    }
+  ],
+  "interfaces": [
+    {
+      "type": "bus",
+      "direction": "slave",
+      "protocol": "SPI",
+      "port": "spi_sck",
+      "width": 1,
+      "description": "SPI clock input"
+    },
+    {
+      "type": "bus",
+      "direction": "slave",
+      "protocol": "SPI",
+      "port": "spi_mosi",
+      "width": 1,
+      "description": "SPI master-out-slave-in data input"
+    },
+    {
+      "type": "bus",
+      "direction": "master",
+      "protocol": "SPI",
+      "port": "spi_miso",
+      "width": 1,
+      "description": "SPI master-in-slave-out data output"
+    },
+    {
+      "type": "bus",
+      "direction": "slave",
+      "protocol": "SPI",
+      "port": "spi_cs",
+      "width": 1,
+      "description": "SPI chip select input"
+    },
+    {
+      "type": "clock",
+      "direction": "input",
+      "protocol": "generic",
+      "port": "clk",
+      "width": 1,
+      "description": "System clock input"
+    },
+    {
+      "type": "reset",
+      "direction": "input",
+      "protocol": "generic",
+      "port": "reset_n",
+      "width": 1,
+      "description": "Active-low reset input"
+    },
+    {
+      "type": "analog",
+      "direction": "input",
+      "protocol": "generic",
+      "port": "vin_p",
+      "width": 1,
+      "description": "Positive analog input"
+    },
+    {
+      "type": "analog",
+      "direction": "input",
+      "protocol": "generic",
+      "port": "vin_n",
+      "width": 1,
+      "description": "Negative analog input"
+    },
+    {
+      "type": "digital",
+      "direction": "output",
+      "protocol": "generic",
+      "port": "adc_out",
+      "width": 12,
+      "description": "12-bit digital output of the ADC"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "DATA_WIDTH",
+      "type": "int",
+      "default": 12,
+      "description": "Width of the ADC output data"
+    },
+    {
+      "name": "SAMPLE_RATE",
+      "type": "int",
+      "default": 10000,
+      "description": "Sampling rate of the ADC in samples per second"
+    },
+    {
+      "name": "SPI_MODE",
+      "type": "int",
+      "default": 0,
+      "description": "SPI mode configuration (0-3)"
+    }
+  ],
+  "performance": {
+    "resolution_bits": 12,
+    "sampling_rate_ksps": 10,
+    "power_consumption_mw": null
+  },
+  "architecture": {
+    "type": "peripheral",
+    "features": [
+      "Incremental delta-sigma ADC",
+      "Digital decimator",
+      "SPI interface for configuration and data readout",
+      "12-bit resolution",
+      "10-KSPS sampling rate"
+    ]
+  },
+  "asic": {
+    "flavor": "digital",
+    "technology": [
+      "sky130A"
+    ]
+  },
+  "fpga": {
+    "toolchain": [
+      "Vivado"
+    ],
+    "devices": [
+      "Artix-7"
+    ]
+  },
+  "dependencies": [
+    {
+      "name": "sky130_fd_io",
+      "type": "library",
+      "description": "SKY130 standard cell IO library"
+    },
+    {
+      "name": "sky130_fd_sc_hd",
+      "type": "library",
+      "description": "SKY130 high-density standard cell library"
+    },
+    {
+      "name": "sky130_fd_sc_hvl",
+      "type": "library",
+      "description": "SKY130 high-voltage standard cell library"
+    },
+    {
+      "name": "sky130_sram_2kbyte_1rw1r_32x512_8",
+      "type": "memory",
+      "description": "SKY130 2kbyte SRAM macro"
+    }
+  ],
+  "test": {
+    "testbenches": [
+      "digital_filter_tb_random.sv",
+      "decimator_tb.v",
+      "digital_filter_tb_ngspice.v",
+      "integrator_1_tb.v",
+      "integrator_2_tb.v"
+    ],
+    "status": "upstream_passing",
+    "coverage": "functional"
+  },
+  "documentation": {
+    "upstream": "https://github.com/r09g/iadc"
+  },
+  "artifacts": {
+    "total_rtl_lines": 174337
+  },
+  "categories": [
+    {
+      "main_category": "Analog & Mixed-Signal",
+      "sub_category": "Data Converters"
+    }
+  ],
+  "keywords": [
+    "ADC",
+    "delta-sigma",
+    "12-bit",
+    "SKY130",
+    "SPI",
+    "data converters"
+  ],
+  "trust": {
+    "verification_level": "simulation_passing",
+    "tapeout_count": 0,
+    "fpga_validated": false,
+    "formal_verified": false,
+    "maintained": true,
+    "last_activity": "2026-04-01T05:16:28Z"
+  },
+  "meta": {
+    "template": {
+      "generator": "github-models-ai",
+      "template_version": "1.0.0",
+      "generated_at": "2026-04-01T05:16:28Z"
+    },
+    "schema": {
+      "version": "1.0.0"
+    }
+  }
+}
